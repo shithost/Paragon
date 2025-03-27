@@ -1,14 +1,21 @@
 const express = require('express');
+const session = require('express-session');
+const authRoutes = require('./routes/auth');
 const app = express();
 const port = 3001;
 
-app.set('view engine', 'ejs');
+app.use(express.urlencoded({ extended: true }));
 
+app.use(session({
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: true
+}));
+
+app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.render('index', { title: 'Paragon' });
-});
+app.use('/', authRoutes);
 
 app.listen(port, () => {
     console.log(`Paragon is running on http://localhost:${port}`);
