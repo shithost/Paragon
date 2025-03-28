@@ -1,15 +1,19 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const isAuthenticated = require('../middleware/auth');
 const bcrypt = require('bcrypt');
+const isAuthenticated = require('../middleware/auth');
 
 const router = express.Router();
 
 const users = JSON.parse(fs.readFileSync(path.join(__dirname, '../users.json'), 'utf8'));
 
 router.get('/', (req, res) => {
-    res.render('index', { title: 'Paragon', errorMessage: '' });
+    if (req.session.user) {
+        res.redirect('/home');
+    } else {
+        res.render('index', { title: 'Paragon', errorMessage: '' });
+    }
 });
 
 router.post('/login', (req, res) => {
@@ -21,7 +25,7 @@ router.post('/login', (req, res) => {
             if (err) {
                 res.render('index', { title: 'Paragon', errorMessage: 'Error verifying password' });
             } else if (result) {
-                req.session.userId = user.id;
+                req.session.user = user;
                 res.redirect('/home');
             } else {
                 res.render('index', { title: 'Paragon', errorMessage: 'Invalid email or password' });
@@ -33,7 +37,7 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/home', isAuthenticated, (req, res) => {
-    res.render('home', { title: 'Paragon'});
+    res.render('home', { title: 'Paragon' });
 });
 
 router.get('/logout', (req, res) => {

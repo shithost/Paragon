@@ -4,20 +4,174 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, 
+                rgba(255, 255, 255, 0.05) 0%, 
+                transparent 50%);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            backdrop-filter: blur(0px);
+        }
+
+        .card-container {
+            background: rgba(17, 24, 39, 0.8);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+            animation: containerFloat 6s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .card-container:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes containerFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        h2 {
+            color: #f8fafc;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 30px rgba(129, 140, 248, 0.3);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin: 0.5rem 0;
+        }
+
+        label {
+            color: #94a3b8;
+            font-weight: 500;
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        input {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(62, 128, 255, 0.2);
+            border-radius: 12px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #f8fafc;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        input:focus,
+        input:not(:placeholder-shown) {
+            border-color: #818cf8;
+            box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+            ~ label {
+                transform: translateY(-1.2rem) scale(0.8);
+                color: #f8fafc;
+            }
+        }
+
+        button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #818cf8 0%, #a78bfa 100%);
+            color: #f8fafc;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(129, 140, 248, 0.4);
+            background: linear-gradient(135deg, #a78bfa 0%, #dbadff 100%);
+        }
+
+        .error-message {
+            color: #fee2e2;
+            margin-top: 1rem;
+            font-weight: 500;
+            text-shadow: 0 0 15px rgba(254, 226, 226, 0.3);
+            animation: errorFade 0.5s ease-out;
+            padding: 0.8rem 1.5rem;
+            background: rgba(254, 226, 226, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: errorFade 0.5s ease-out;
+        }
+
+        @keyframes errorFade {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <form action="/login" method="post">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
-    <div style="color: red;">
-        <%= errorMessage ? errorMessage : '' %>
+    <div class="card-container">
+        <h2>Login</h2>
+        <form action="/login" method="post">
+            <div class="input-group">
+                <input type="email" id="email" name="email" required placeholder="Email">
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" required placeholder="Password">
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div class="error-message">
+            <%= errorMessage ? errorMessage : '' %>
+        </div>
     </div>
 </body>
 </html>

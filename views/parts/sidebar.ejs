@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<div class="sidebar">
+  <style>
+      .sidebar {
+          background: linear-gradient(145deg, rgba(17, 24, 39, 0.8), rgba(17, 24, 39, 0.9));
+          padding: 2rem 1.5rem;
+          border-radius: 15px;
+          border: 1px solid rgba(100, 255, 218, 0.2);
+          backdrop-filter: blur(10px);
+          text-align: center;
+          position: fixed;
+          width: 200px;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 1000;
+          box-shadow: 0 0 30px rgba(129, 140, 248, 0.2);
+          transition: all 0.3s ease;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      .sidebar-logo {
+          margin-bottom: 2rem;
+      }
+
+      .sidebar ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+      }
+
+      .sidebar li {
+          margin: 0.5rem 0;
+          transition: all 0.3s ease;
+      }
+
+      .sidebar a {
+          text-decoration: none;
+          color: var(--text);
+          font-weight: 500;
+          display: block;
+          padding: 1rem 1.5rem;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(5px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          transition: all 0.3s ease;
+          letter-spacing: 1px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 0.5rem;
+      }
+
+      .sidebar a:hover {
+          background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+          transform: translateX(5px);
+          box-shadow: 0 0 20px rgba(129, 140, 248, 0.3);
+      }
+
+      .sidebar a.active {
+          color: var(--primary);
+          background: rgba(129, 140, 248, 0.1);
+          border-color: var(--primary);
+          transform: translateX(3px);
+      }
+
+      .sidebar a i {
+          font-size: 1.2rem;
+          margin-right: 0.5rem;
+      }
+
+      .sidebar-logo {
+          font-size: 1.5rem;
+          color: var(--primary);
+          margin-bottom: 2rem;
+          font-weight: 700;
+          letter-spacing: 1px;
+          text-shadow: 0 0 15px rgba(129, 140, 248, 0.3);
+      }
+  </style>
+    
+  <div class="sidebar-logo">
+      <h2><%= sidebarTitle %></h2>
+  </div>
+  
+
+  <ul>
+    <li><a href="/home" class="${url.startsWith('/home') ? 'active' : ''}"><i class="fas fa-home"></i>Home</a></li>
+    <li><a href="/account" class="${url.startsWith('/account') ? 'active' : ''}"><i class="fas fa-user"></i>Account</a></li>
+    <% if (isLoggedIn && isAdmin) { %>
+    <li><a href="/admin" class="${url.startsWith('/admin') ? 'active' : ''}"><i class="fas fa-cog"></i>Admin</a></li>
+    <% } %>
+    <% if (isLoggedIn) { %>
+      <li class="logout-button">
+          <a href="/logout" class="logout-link">
+              <i class="fas fa-sign-out"></i>Logout
+          </a>
+      </li>
+    <% } %>
+  </ul>
+
+  <style>
+    .logout-link {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white !important;
+        font-weight: bold;
+    }
+    .logout-link:hover {
+        background: linear-gradient(135deg, #c71a1a 0%, #a9101d 100%);
+        transform: translateX(5px);
+    }
+  </style>
+
+  <script>
+      document.addEventListener('DOMContentLoaded', function() {
+          const currentPath = window.location.pathname;
+          const links = document.querySelectorAll('.sidebar a');
+          
+          links.forEach(link => {
+              if (link.getAttribute('href').startsWith(currentPath)) {
+                  link.classList.add('active');
+              }
+          });
+      });
+  </script>
+</div>

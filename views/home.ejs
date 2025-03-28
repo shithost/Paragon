@@ -4,5 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %> - Home</title>
+    <style>
+        :root {
+            --primary: #818cf8;
+            --secondary: #172544;
+            --background: #0f172a;
+            --text: #f8fafc;
+            --glass: rgba(17, 24, 39, 0.8);
+        }
+    
+        body {
+            background: linear-gradient(135deg, var(--background) 0%, #1e293b 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            position: relative;
+        }
+    
+        .main-content {
+            margin-left: 280px;
+            padding: 2.5rem;
+            width: calc(100% - 280px);
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+            animation: contentFloat 6s ease-in-out infinite;
+        }
+    
+        @keyframes contentFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+    
+        h1 {
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+    
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+    
+        ::-webkit-scrollbar-track {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+    
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+    
+        ::-webkit-scrollbar-thumb:hover {
+            background: #172544;
+        }
+    
+        ::-webkit-scrollbar-thumb:active {
+            background: #172544;
+        }
+    </style>
 </head>
+<body>
+    <%- include('parts/sidebar'); %>
+</body>
 </html>

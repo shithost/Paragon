@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "id": 1,
+    "username": "a",
+    "email": "a@a",
+    "password": "$2b$10$fayY4ZeoXLUnXEYi3KNLyeA9s6sN73v3V0TOe4raqXVLckTWJHDXe",
+    "isAdmin": true
+  },
+  {
+    "id": 2,
+    "username": "s",
+    "email": "s@d",
+    "password": "$2b$10$ojAPAQBb1wuv3uczyS.kqOZuy4.Gzg2odzmFf6EmWm1J8c/gCY8d6",
+    "isAdmin": false
+  }
+]
