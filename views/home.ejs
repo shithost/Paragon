@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %> - Home</title>
     <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         :root {
             --primary: #818cf8;
             --secondary: #172544;
@@ -22,7 +26,7 @@
         }
     
         .main-content {
-            margin-left: 280px;
+            margin-left: 200px;
             padding: 2.5rem;
             width: calc(100% - 280px);
             background: var(--glass);
@@ -30,19 +34,17 @@
             border: 1px solid rgba(100, 255, 218, 0.2);
             backdrop-filter: blur(10px);
             min-height: 100vh;
-            animation: contentFloat 6s ease-in-out infinite;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Change to move the content to the top */
+            align-items: center;
         }
     
-        @keyframes contentFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-    
+
         h1 {
             color: var(--text);
-            margin-bottom: 2rem;
         }
-    
+
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -52,13 +54,9 @@
         }
     
         ::-webkit-scrollbar-thumb {
-            background: var(--secondary);
+            background: #172544;
             border-radius: 4px;
             transition: background 0.3s ease;
-        }
-    
-        ::-webkit-scrollbar-thumb:hover {
-            background: #172544;
         }
     
         ::-webkit-scrollbar-thumb:active {
@@ -68,5 +66,8 @@
 </head>
 <body>
     <%- include('parts/sidebar'); %>
+    <div class="main-content">
+        <h1>Servers</h1>
+    </div>
 </body>
 </html>
