@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - User API</title>
+    <style>
+        * {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #818cf8;
+            --secondary: #172544;
+            --background: #0f172a;
+            --text: #f8fafc;
+            --glass: rgba(17, 24, 39, 0.8);
+        }
+    
+        body {
+            background: linear-gradient(135deg, var(--background) 0%, #1e293b 100%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+        }
+    
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start; 
+            margin-left: 200px;
+            padding: 2.5rem;
+            width: calc(100% - 280px);
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            backdrop-filter: blur(10px);
+            min-height: 100vh;
+            gap: 2rem;
+        }
+
+        .api-key-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            padding: 2rem;
+            background: rgba(17, 24, 39, 0.7);
+            border-radius: 8px;
+            color: var(--text);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .api-key-generator {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        button:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        .api-key-list {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .api-key-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: rgba(17, 24, 39, 0.9);
+            margin: 5px 0;
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .api-key-item:hover {
+            transform: translateX(5px);
+            box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .api-key-item code {
+            background: rgba(39, 49, 66, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+
+        .copy-button {
+            padding: 6px 12px;
+            background: #10b981;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-button:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+        }
+
+        .delete-button {
+            padding: 6px 12px;
+            background: #ef4444;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-button:hover {
+            opacity: 0.8;
+            transform: translateY(-1px);
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <%- include('parts/account-sidebar'); %>
+    <div class="main-content">
+        <h1>User API</h1>
+        <% if (apiKeyCount < 10) { %>
+            <form action="/account/api/generate" method="POST">
+                <div class="api-key-generator">
+                    <button type="submit">Generate New API Key</button>
+                </div>
+            </form>
+        <% } else { %>
+            <div class="api-key-generator" style="color: red;">
+                You have reached the maximum of 10 API keys
+            </div>
+        <% } %>
+
+        <% if (user && Object.keys(user).filter(k => k.startsWith('apikey')).length > 0) { %>
+            <div class="api-key-container">
+                <h2>Your API Keys</h2>
+                <div class="api-key-list">
+                    <% Object.entries(user).forEach(([key, value]) => { %>
+                        <% if (key.startsWith('apikey')) { %>
+                            <div class="api-key-item">
+                                <span><%= key.replace('apikey', 'API Key ') %></span>
+                                <code><%= value %></code>
+                                <button class="copy-button" onclick="copyToClipboard('<%= value %>')">Copy</button>
+                                <button class="delete-button" onclick="deleteApiKey('<%= key %>')">Delete</button> <!-- Pass the key name here -->
+                            </div>
+                        <% } %>
+                    <% }) %>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    <script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('API key copied to clipboard!');
+        }).catch(err => {
+            console.error('Could not copy text: ', err);
+            alert('Failed to copy API key to clipboard.');
+        });
+    }
+
+    async function deleteApiKey(apiKeyValue) {
+    if (confirm('Are you sure you want to delete this API key?')) {
+        try {
+            const response = await fetch('/account/api/delete', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ key: apiKeyValue }),
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                const errorData = await response.json();
+                alert('Error deleting API key: ' + errorData.message);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error deleting API key');
+        }
+    }
+}
+    </script>
+</body>
+</html>
