@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const authRoutes = require('./routes/auth');
 const accountRoutes = require('./routes/account');
+const adminRoutes = require('./routes/admin');
 const app = express();
 const port = 3001;
 
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 
 app.use('/', authRoutes);
 app.use('/', accountRoutes);
+app.use('/', adminRoutes);
 
 app.listen(port, () => {
     console.log(`Paragon is running on http://localhost:${port}`);

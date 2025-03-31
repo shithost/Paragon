@@ -90,7 +90,7 @@
     <li><a href="/home" class="${url.startsWith('/home') ? 'active' : ''}"><i class="fas fa-home"></i>Home</a></li>
     <li><a href="/account/profile" class="${url.startsWith('/account/profile') ? 'active' : ''}"><i class="fas fa-user"></i>Account</a></li>
     <% if (isLoggedIn && isAdmin) { %>
-    <li><a href="/admin" class="${url.startsWith('/admin') ? 'active' : ''}"><i class="fas fa-cog"></i>Admin</a></li>
+    <li><a href="/admin/home" class="${url.startsWith('/admin') ? 'active' : ''}"><i class="fas fa-cog"></i>Admin</a></li>
     <% } %>
     <% if (isLoggedIn) { %>
       <li class="logout-button">
