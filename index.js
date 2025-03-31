@@ -6,6 +6,7 @@ const app = express();
 const port = 3001;
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.use(session({
     secret: 'your_secret_key',

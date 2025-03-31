@@ -3,8 +3,11 @@
     "id": 1,
     "username": "a",
     "email": "a@a",
-    "password": "$2b$10$Bw4TR1nrhmiUtqnt6hzfGerh1lX8t4mrwneWDvwhQrvYHKgDQRaly",
-    "isAdmin": true
+    "password": "$2b$10$UvBVARLY9oy1VoNZaTqhaus7kyBfwETM//a8FfTNKYd2daaBUpxbS",
+    "isAdmin": true,
+    "apikey1": "paragon-rBNwpeoX",
+    "apikey2": "paragon-1E3mq8cx",
+    "apikey3": "paragon-e1c1fXs9"
   },
   {
     "id": 2,
