@@ -1,19 +1,19 @@
 [
   {
-    "id": 1,
-    "username": "a",
-    "email": "a@a",
-    "password": "$2b$10$UvBVARLY9oy1VoNZaTqhaus7kyBfwETM//a8FfTNKYd2daaBUpxbS",
-    "isAdmin": true,
-    "apikey1": "paragon-rBNwpeoX",
-    "apikey2": "paragon-1E3mq8cx",
-    "apikey3": "paragon-e1c1fXs9"
-  },
-  {
     "id": 2,
     "username": "s",
     "email": "s@d",
     "password": "$2b$10$ojAPAQBb1wuv3uczyS.kqOZuy4.Gzg2odzmFf6EmWm1J8c/gCY8d6",
     "isAdmin": false
+  },
+  {
+    "id": 3,
+    "username": "a",
+    "email": "a@a",
+    "password": "$2b$10$0Ll1yspiWe7v7UfnIkcA7.0wDD6gkZgqfP2aTbNoJn7gEAwqspzFq",
+    "isAdmin": true,
+    "apikey1": "paragon-PQyLEIIN",
+    "apikey2": "paragon-3LcyucbJ",
+    "apikey3": "paragon-WI6PPEVA"
   }
 ]

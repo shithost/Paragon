@@ -38,25 +38,43 @@
             backdrop-filter: blur(10px);
             min-height: 100vh;
             gap: 2rem;
-        }
+        }        
 
-        .api-key-container {
-            width: 100%;
-            max-width: 600px;
-            margin: 20px 0;
-            padding: 2rem;
-            background: rgba(17, 24, 39, 0.7);
-            border-radius: 8px;
-            color: var(--text);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
+        .api-key-generator-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 20px 0;
+    padding: 0.75rem;
+}
 
-        .api-key-generator {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
+.api-key-generator-button {
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, var(--primary) 0%, #a78bfa 100%);
+    color: var(--text);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    width: 100%;
+    font-size: 0.875rem; 
+    margin-top: -15px; 
+}
+
+.api-key-generator-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(129, 140, 248, 0.4);
+    background: linear-gradient(135deg, #a78bfa 0%, #dbadff 100%);
+}
+
+.disabled {
+    background: rgba(255, 0, 0, 0.2);
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.8;
+}
 
         button {
             padding: 10px 20px;
@@ -153,13 +171,17 @@
         <h1>User API</h1>
         <% if (apiKeyCount < 10) { %>
             <form action="/account/api/generate" method="POST">
-                <div class="api-key-generator">
-                    <button type="submit">Generate New API Key</button>
+                <div class="api-key-generator-container">
+                    <button type="submit" class="api-key-generator-button">
+                        Generate New API Key
+                    </button>
                 </div>
             </form>
         <% } else { %>
-            <div class="api-key-generator" style="color: red;">
-                You have reached the maximum of 10 API keys
+            <div class="api-key-generator-container">
+                <div class="api-key-generator-button disabled" style="color: red;">
+                    You have reached the maximum of 10 API keys
+                </div>
             </div>
         <% } %>
 
