@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - Users</title>
+    <title><%= title %> - Create Users</title>
     <style>
         * {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -39,25 +39,10 @@
             justify-content: flex-start;
             align-items: center;
         }
+    
 
         h1 {
             color: var(--text);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 25px;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        th {
-            color: var(--primary);
         }
 
         ::-webkit-scrollbar {
@@ -110,28 +95,6 @@
 <body>
     <%- include('parts/admin-sidebar'); %>
     <div class="main-content">
-        <h1>Users</h1>
-        <div class="create-user-button">
-            <a href="/admin/users/create" class="create-user-btn">Create New User</a>
-    </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% users.forEach(user => { %>
-                    <tr>
-                        <td><%= user.id %></td>
-                        <td><%= user.username %></td>
-                        <td><%= user.email %></td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    </div>
+        <h1>Create</h1>
 </body>
 </html>
