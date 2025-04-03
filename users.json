@@ -15,5 +15,13 @@
     "apikey1": "paragon-PQyLEIIN",
     "apikey2": "paragon-3LcyucbJ",
     "apikey3": "paragon-WI6PPEVA"
+  },
+  {
+    "id": 4,
+    "username": "sdfadf",
+    "email": "asdf@asdf",
+    "password": "$2b$10$jGxExaH2yizKnuK1eQGsPu2jju3MFs2szuc7/L2cpHTZ267iHNlEi",
+    "name": "asdf",
+    "isAdmin": true
   }
 ]

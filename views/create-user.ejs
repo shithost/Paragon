@@ -90,11 +90,106 @@
             box-shadow: 0 0 30px rgba(129, 140, 248, 0.4);
             background: linear-gradient(135deg, #a78bfa 0%, #dbadff 100%);
         }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 400px;
+            gap: 1rem;
+            padding: 2rem;
+            background: var(--glass);
+            border-radius: 15px;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 10px rgba(129, 140, 248, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .form-container input, .form-container select {
+            padding: 0.75rem 1rem;
+            background: rgba(17, 24, 39, 0.8);
+            color: #f8fafc;
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 12px;
+            font-size: 0.875rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .form-container label {
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-container .admin-checkbox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-checkbox {
+            margin-bottom: 1rem;
+        }
+
+        .admin-options {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .admin-options label {
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .admin-options input[type="radio"] {
+            accent-color: var(--primary);
+        }
     </style>
 </head>
 <body>
     <%- include('parts/admin-sidebar'); %>
     <div class="main-content">
-        <h1>Create</h1>
+        <h1>Create User</h1>
+        <form action="/admin/users/create" method="POST" id="createUserForm">
+            <div class="form-container">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+
+                <div class="admin-checkbox">
+                    <span>Is Admin:</span>
+                    <div class="admin-options">
+                        <input type="radio" id="isAdminTrue" name="isAdmin" value="true">
+                        <label for="isAdminTrue">True</label>
+                    </div>
+                    <div class="admin-options">
+                        <input type="radio" id="isAdminFalse" name="isAdmin" value="false" checked>
+                        <label for="isAdminFalse">False</label>
+                    </div>
+                </div>
+
+            <button class="create-user-btn" onclick="return validateEmail()">Create</button>
+        </div>
+    </div>
+    <script>
+        function validateEmail() {
+            var email = document.getElementById("email").value;
+            if (email.indexOf('@') === -1) {
+                alert("Please enter a valid email address containing '@'.");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
